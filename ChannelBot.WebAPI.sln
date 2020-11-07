@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChannelBot.WebAPI", "ChannelBot.WebAPI\ChannelBot.WebAPI.csproj", "{486F264D-C947-4954-8612-ECE735F12C84}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChannelBot.DAL", "ChannelBot.DAL\ChannelBot.DAL.csproj", "{5EF3C1E8-5ACB-4050-8C6F-F404C3CA7FC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChannelBot.BLL", "ChannelBot.BLL\ChannelBot.BLL.csproj", "{52767082-E22D-4F31-89CD-F9045BD9E651}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{486F264D-C947-4954-8612-ECE735F12C84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{486F264D-C947-4954-8612-ECE735F12C84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{486F264D-C947-4954-8612-ECE735F12C84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EF3C1E8-5ACB-4050-8C6F-F404C3CA7FC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EF3C1E8-5ACB-4050-8C6F-F404C3CA7FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EF3C1E8-5ACB-4050-8C6F-F404C3CA7FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EF3C1E8-5ACB-4050-8C6F-F404C3CA7FC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52767082-E22D-4F31-89CD-F9045BD9E651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52767082-E22D-4F31-89CD-F9045BD9E651}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52767082-E22D-4F31-89CD-F9045BD9E651}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52767082-E22D-4F31-89CD-F9045BD9E651}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
