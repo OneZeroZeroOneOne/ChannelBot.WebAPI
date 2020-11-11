@@ -27,6 +27,10 @@ namespace ChannelBot.WebAPI
 
             services.AddTransient<ICategoryService, CategoryService>();
 
+            services.AddTransient<IGroupService, GroupService>();
+
+            services.AddTransient<ISourceService, SourceService>();
+            
             services.AddTransient(x =>
             {
                 return new MainContext("Host=95.214.9.14;Database=postgres;Username=postgres;Password=123456rtyu");

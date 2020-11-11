@@ -30,7 +30,14 @@ namespace ChannelBot.BLL.Services
             return l;
         }
 
+        async public Task CreateCategory(string title)
+        {
+            Category c = new Category();
+            c.Title = title;
+            await _context.AddAsync(c);
+            await _context.SaveChangesAsync();
 
+        }
 
     }
 }

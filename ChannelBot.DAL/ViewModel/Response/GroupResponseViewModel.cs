@@ -9,6 +9,6 @@ namespace ChannelBot.DAL.ViewModel.Response
         public int CategoryId { get; set; }
         public int Id { get; set; }
         public int SerialNumber { get; set; }
-        public virtual List<SourceResponseViewModel> Sources { get; set; }
+        public List<SourceResponseViewModel> Sources { get; set; }
     }
 }

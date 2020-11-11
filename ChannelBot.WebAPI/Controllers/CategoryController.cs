@@ -37,5 +37,11 @@ namespace ChannelBot.WebAPI.Controllers
             var responce = await _categoryService.GetCategory(id);
             return _mapperProfile.Map<CategoryResponseViewModel>(responce);
         }
+
+        [HttpPost]
+        public async Task CreateCategory([FromQuery] string title)
+        {
+            await _categoryService.CreateCategory(title);
+        }
     }
 }
