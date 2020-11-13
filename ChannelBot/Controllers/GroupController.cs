@@ -10,7 +10,7 @@ using ChannelBot.DAL.Models;
 using Microsoft.AspNetCore.Routing;
 using ChannelBot.DAL.ViewModel.Response;
 
-namespace ChannelBot.WebAPI.Controllers
+namespace ChannelBot.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -41,9 +41,9 @@ namespace ChannelBot.WebAPI.Controllers
         }
 
         [HttpPost]
-        async public Task CreateGroup([FromQuery] int categotyId)
+        async public Task CreateGroup([FromQuery] int categoryId)
         {
-            await _groupService.CreateGroup(categotyId);
+            await _groupService.CreateGroup(categoryId);
         }
 
         [HttpPost]

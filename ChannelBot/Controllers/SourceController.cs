@@ -9,7 +9,7 @@ using ChannelBot.DAL.ViewModel.Response;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ChannelBot.WebAPI.Controllers
+namespace ChannelBot.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

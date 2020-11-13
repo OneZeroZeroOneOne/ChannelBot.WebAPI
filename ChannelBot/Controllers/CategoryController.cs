@@ -9,7 +9,7 @@ using ChannelBot.BLL.Abstractions;
 using AutoMapper;
 using ChannelBot.DAL.ViewModel.Response;
 
-namespace ChannelBot.WebAPI.Controllers
+namespace ChannelBot.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
