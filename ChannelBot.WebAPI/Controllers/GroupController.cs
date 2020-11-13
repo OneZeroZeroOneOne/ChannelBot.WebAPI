@@ -60,6 +60,13 @@ namespace ChannelBot.WebAPI.Controllers
             var responce = await _groupService.GroupSource(groupId);
             return _mapperProfile.Map<List<SourceResponseViewModel>>(responce);
         }
+
+        [HttpDelete]
+        [Route("{groupId}")]
+        async public Task DeleteGroup([FromRoute] int groupId)
+        {
+            await _groupService.DeleteGroup(groupId);
+        }
     }
 
 }

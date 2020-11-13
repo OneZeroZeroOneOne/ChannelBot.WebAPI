@@ -12,5 +12,7 @@ namespace ChannelBot.BLL.Abstractions
         public Task<Category> GetCategory(int id);
 
         public Task CreateCategory(string title);
+
+        public Task DeleteCategory(int id);
     }
 }

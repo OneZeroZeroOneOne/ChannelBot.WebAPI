@@ -14,6 +14,9 @@ namespace ChannelBot.BLL.Abstractions
 
         public Task CreateSource(string Url, int platformId);
 
-        
+        public Task DeleteSource(int sourceId);
+
+
+
     }
 }

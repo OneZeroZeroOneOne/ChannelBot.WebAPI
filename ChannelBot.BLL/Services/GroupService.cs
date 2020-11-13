@@ -52,5 +52,11 @@ namespace ChannelBot.BLL.Services
             return await groupSource.Select(x => x.Source).ToListAsync();
         }
 
+        async public Task DeleteGroup(int groupId)
+        {
+            _context.GroupSource.RemoveRange(_context.GroupSource.Where(x => x.GroupId == groupId));
+            _context.Group.RemoveRange(_context.Group.Where(x => x.Id == groupId));
+            await _context.SaveChangesAsync();
+        }
     }
 }

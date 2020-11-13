@@ -43,5 +43,12 @@ namespace ChannelBot.WebAPI.Controllers
         {
             await _sourceService.CreateSource(Url, platformId);
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        async public Task DeleteSource([FromRoute] int sourceId)
+        {
+            await _sourceService.DeleteSource(sourceId);
+        }
     }
 }

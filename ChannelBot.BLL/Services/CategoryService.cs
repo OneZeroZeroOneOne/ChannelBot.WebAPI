@@ -36,7 +36,15 @@ namespace ChannelBot.BLL.Services
             c.Title = title;
             await _context.AddAsync(c);
             await _context.SaveChangesAsync();
+        }
 
+        async public Task DeleteCategory(int id)
+        {
+            _context.UserCredential.RemoveRange(_context.UserCredential.Where(x => x.CategoryId == id));
+            _context.GroupSource.RemoveRange(_context.GroupSource.Include(x => x.Group).Where(x => x.Group.CategoryId == id));
+            _context.Group.RemoveRange(_context.Group.Include(x => x.Category).Where(x => x.CategoryId == id));
+            _context.Category.RemoveRange(_context.Category.Where(x => x.Id == id));
+            await _context.SaveChangesAsync();
         }
 
     }

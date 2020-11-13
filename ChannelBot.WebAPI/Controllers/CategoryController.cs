@@ -43,5 +43,12 @@ namespace ChannelBot.WebAPI.Controllers
         {
             await _categoryService.CreateCategory(title);
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task DeleteCategory([FromRoute] int id)
+        {
+            await _categoryService.DeleteCategory(id);
+        }
     }
 }

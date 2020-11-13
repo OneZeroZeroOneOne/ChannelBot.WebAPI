@@ -16,5 +16,7 @@ namespace ChannelBot.BLL.Abstractions
         public Task AddSource(int groupId, int sourceId);
 
         public Task<List<Source>> GroupSource(int groupId);
+
+        public Task DeleteGroup(int sourceId);
     }
 }

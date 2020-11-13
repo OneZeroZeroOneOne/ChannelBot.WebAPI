@@ -37,5 +37,12 @@ namespace ChannelBot.BLL.Services
         {
             return await _context.Source.Include(x => x.GroupSource).ThenInclude(x => x.Group).ToListAsync();
         }
+
+        async public Task DeleteSource(int sourceId)
+        {
+            _context.GroupSource.RemoveRange(_context.GroupSource.Where(x => x.SourceId == sourceId));
+            _context.Source.RemoveRange(_context.Source.Where(x => x.Id == sourceId));
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -70,6 +70,10 @@ namespace ChannelBot.WebAPI
 
             app.UseRouting();
 
+            app.UseCors(x => x.AllowAnyOrigin());
+
+            app.UseCors(x => x.AllowAnyHeader());
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
