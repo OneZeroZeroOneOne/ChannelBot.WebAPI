@@ -23,18 +23,17 @@ namespace ChannelBot
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-
-        public class LambdaHandler : APIGatewayHttpApiV2ProxyFunction<Startup>
+    }
+    public class LambdaHandler : APIGatewayHttpApiV2ProxyFunction<Startup>
+    {
+        /*protected override IWebHostBuilder CreateWebHostBuilder()
         {
-            /*protected override IWebHostBuilder CreateWebHostBuilder()
-            {
-                return Program.CreateWebHostBuilder(null);
-            }*/
-            protected override void Init(IWebHostBuilder builder)
-            {
-                builder
-                    .UseStartup<Startup>();
-            }
+            return Program.CreateWebHostBuilder(null);
+        }*/
+        protected override void Init(IWebHostBuilder builder)
+        {
+            builder
+                .UseStartup<Startup>();
         }
     }
 }
