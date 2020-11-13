@@ -21,7 +21,7 @@ jobs:
 
       - name: build
         run: dotnet lambda package --msbuild-parameters "/p:PublishReadyToRun=true --self-contained false"
-        working-directory: ChannelBot.WebAPI
+        working-directory: ChannelBot
 
       - name: aws login
         uses: aws-actions/configure-aws-credentials@v1
