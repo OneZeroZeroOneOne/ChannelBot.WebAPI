@@ -44,6 +44,7 @@ namespace ChannelBot.Controllers
         async public Task CreateGroup([FromQuery] int categoryId)
         {
             await _groupService.CreateGroup(categoryId);
+
         }
 
         [HttpPost]
