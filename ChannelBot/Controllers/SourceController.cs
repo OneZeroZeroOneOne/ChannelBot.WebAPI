@@ -41,14 +41,14 @@ namespace ChannelBot.Controllers
         [HttpPost]
         async public Task CreateSource([FromQuery] string Url, [FromQuery] int platformId)
         {
-            await _sourceService.CreateSource(Url, platformId);
+            await _sourceService.CreateSource(Uri.UnescapeDataString(Url), platformId);
         }
 
         [HttpDelete]
         [Route("{id}")]
-        async public Task DeleteSource([FromRoute] int sourceId)
+        async public Task DeleteSource([FromRoute] int id)
         {
-            await _sourceService.DeleteSource(sourceId);
+            await _sourceService.DeleteSource(id);
         }
     }
 }
