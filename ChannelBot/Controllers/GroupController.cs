@@ -9,6 +9,7 @@ using ChannelBot.BLL.Abstractions;
 using ChannelBot.DAL.Models;
 using Microsoft.AspNetCore.Routing;
 using ChannelBot.DAL.ViewModel.Response;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ChannelBot.Controllers
 {
@@ -25,6 +26,7 @@ namespace ChannelBot.Controllers
             _mapperProfile = mapperProfile;
         }
 
+        [Authorize]
         [HttpGet]
         async public Task<List<GroupResponseViewModel>> GetAllGroup()
         {
@@ -32,6 +34,7 @@ namespace ChannelBot.Controllers
             return _mapperProfile.Map<List<GroupResponseViewModel>>(responce);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("{id}")]
         async public Task<GroupResponseViewModel> GetGroup([FromRoute] int id)
@@ -40,6 +43,7 @@ namespace ChannelBot.Controllers
             return _mapperProfile.Map<GroupResponseViewModel>(responce);
         }
 
+        [Authorize]
         [HttpPost]
         async public Task CreateGroup([FromQuery] int categoryId)
         {
@@ -47,6 +51,7 @@ namespace ChannelBot.Controllers
 
         }
 
+        [Authorize]
         [HttpPost]
         [Route("AddSource")]
         async public Task AddSource([FromQuery] int groupId, [FromQuery] int sourceId)
@@ -54,6 +59,7 @@ namespace ChannelBot.Controllers
             await _groupService.AddSource(groupId, sourceId);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("GroupSource")]
         async public Task<List<SourceResponseViewModel>> GroupSource([FromQuery] int groupId)
@@ -62,6 +68,7 @@ namespace ChannelBot.Controllers
             return _mapperProfile.Map<List<SourceResponseViewModel>>(responce);
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("{groupId}")]
         async public Task DeleteGroup([FromRoute] int groupId)

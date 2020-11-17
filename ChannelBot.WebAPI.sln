@@ -8,6 +8,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelBot.BLL", "ChannelBot.BLL\ChannelBot.BLL.csproj", "{52767082-E22D-4F31-89CD-F9045BD9E651}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelBot", "ChannelBot\ChannelBot.csproj", "{F1B044A9-C08D-41B5-847E-CA4BB8FD661B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D24A77D2-A8B7-4E27-AD66-25F944F41D25} = {D24A77D2-A8B7-4E27-AD66-25F944F41D25}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "СhannelBot.Utilities", "СhannelBot.Utilities\СhannelBot.Utilities.csproj", "{D24A77D2-A8B7-4E27-AD66-25F944F41D25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +32,10 @@ Global
 		{F1B044A9-C08D-41B5-847E-CA4BB8FD661B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1B044A9-C08D-41B5-847E-CA4BB8FD661B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1B044A9-C08D-41B5-847E-CA4BB8FD661B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D24A77D2-A8B7-4E27-AD66-25F944F41D25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D24A77D2-A8B7-4E27-AD66-25F944F41D25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D24A77D2-A8B7-4E27-AD66-25F944F41D25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D24A77D2-A8B7-4E27-AD66-25F944F41D25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

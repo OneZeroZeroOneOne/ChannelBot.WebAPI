@@ -1,19 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
-using ChannelBot.DAL.Models;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace ChannelBot.DAL.Contexts
+namespace ChannelBot.Models
 {
-    public partial class MainContext: DbContext
+    public partial class postgresContext : DbContext
     {
-        private string _connString;
-        public MainContext(string connString)
+        public postgresContext()
         {
-            _connString = connString;
         }
+
+        public postgresContext(DbContextOptions<postgresContext> options)
+            : base(options)
+        {
+        }
+
+        public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Content> Content { get; set; }
         public virtual DbSet<Group> Group { get; set; }
@@ -22,10 +24,28 @@ namespace ChannelBot.DAL.Contexts
         public virtual DbSet<Source> Source { get; set; }
         public virtual DbSet<UserCredential> UserCredential { get; set; }
 
-        public virtual DbSet<JwtOption> JwtOption { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseNpgsql("Host=95.214.9.14;Database=postgres;Username=postgres;Password=123456rtyu");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Admin>(entity =>
+            {
+                entity.Property(e => e.Id).HasDefaultValueSql("nextval('admin_id_seq'::regclass)");
+
+                entity.Property(e => e.Login).IsRequired();
+
+                entity.Property(e => e.Name).IsRequired();
+
+                entity.Property(e => e.Password).IsRequired();
+            });
+
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.Property(e => e.Id).HasDefaultValueSql("nextval('contentcategoryid_seq'::regclass)");
@@ -111,6 +131,8 @@ namespace ChannelBot.DAL.Contexts
                     .HasConstraintName("ua_pi_fk");
             });
 
+            modelBuilder.HasSequence("admin_id_seq");
+
             modelBuilder.HasSequence("contentcategoryid_seq");
 
             modelBuilder.HasSequence("contentgroupid_seq");
@@ -125,11 +147,7 @@ namespace ChannelBot.DAL.Contexts
 
             OnModelCreatingPartial(modelBuilder);
         }
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseNpgsql(_connString);
-        }
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

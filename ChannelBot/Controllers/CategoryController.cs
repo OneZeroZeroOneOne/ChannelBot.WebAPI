@@ -8,6 +8,7 @@ using ChannelBot.DAL.Models;
 using ChannelBot.BLL.Abstractions;
 using AutoMapper;
 using ChannelBot.DAL.ViewModel.Response;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ChannelBot.Controllers
 {
@@ -23,6 +24,7 @@ namespace ChannelBot.Controllers
             _mapperProfile = mapperProfile;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<List<CategoryResponseViewModel>> GetCategories()
         {
@@ -30,6 +32,7 @@ namespace ChannelBot.Controllers
             return _mapperProfile.Map<List<CategoryResponseViewModel>>(responce);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("{id}")]
         public async Task<CategoryResponseViewModel> GetCategory([FromRoute]int id)
@@ -38,12 +41,14 @@ namespace ChannelBot.Controllers
             return _mapperProfile.Map<CategoryResponseViewModel>(responce);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task CreateCategory([FromQuery] string title)
         {
             await _categoryService.CreateCategory(title);
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("{id}")]
         public async Task DeleteCategory([FromRoute] int id)

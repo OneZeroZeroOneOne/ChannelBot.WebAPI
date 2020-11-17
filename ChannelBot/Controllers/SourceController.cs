@@ -6,6 +6,7 @@ using AutoMapper;
 using ChannelBot.BLL.Abstractions;
 using ChannelBot.DAL.Models;
 using ChannelBot.DAL.ViewModel.Response;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,8 @@ namespace ChannelBot.Controllers
             _mapperProfile = mapperProfile;
         }
 
+
+        [Authorize]
         [HttpGet]
         [Route("{id}")]
         async public Task<SourceResponseViewModel> GetSource([FromRoute] int id)
@@ -31,6 +34,8 @@ namespace ChannelBot.Controllers
             return _mapperProfile.Map<SourceResponseViewModel>(responce);
         }
 
+
+        [Authorize]
         [HttpGet]
         async public Task<List<SourceResponseViewModel>> GetAllSource()
         {
@@ -38,12 +43,16 @@ namespace ChannelBot.Controllers
             return _mapperProfile.Map<List<SourceResponseViewModel>>(responce);
         }
 
+
+        [Authorize]
         [HttpPost]
         async public Task CreateSource([FromQuery] string Url, [FromQuery] int platformId)
         {
             await _sourceService.CreateSource(Uri.UnescapeDataString(Url), platformId);
         }
 
+
+        [Authorize]
         [HttpDelete]
         [Route("{id}")]
         async public Task DeleteSource([FromRoute] int id)
