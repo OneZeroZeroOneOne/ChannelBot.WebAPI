@@ -9,11 +9,10 @@ namespace ChannelBot.Authorization.Bll
             RoleEntryRequirement requirement)
         {
             var authorizedUser = (AuthorizedUserModel)context.User.Identity;
-            if (authorizedUser.RoleId == 1)
+            if (authorizedUser.RoleId == requirement.RoleId)
             {
                 context.Succeed(requirement);
             }
-
             return Task.CompletedTask;
         }
     }

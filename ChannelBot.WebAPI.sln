@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelBot", "ChannelBot\Ch
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "СhannelBot.Utilities", "СhannelBot.Utilities\СhannelBot.Utilities.csproj", "{D24A77D2-A8B7-4E27-AD66-25F944F41D25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChannelBot.Authorization.Bll", "ChannelBot.Authorization.Bll\ChannelBot.Authorization.Bll.csproj", "{356DD7FB-58F7-48FB-8944-05C3516586C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelBot.Authorization.Bll", "ChannelBot.Authorization.Bll\ChannelBot.Authorization.Bll.csproj", "{356DD7FB-58F7-48FB-8944-05C3516586C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

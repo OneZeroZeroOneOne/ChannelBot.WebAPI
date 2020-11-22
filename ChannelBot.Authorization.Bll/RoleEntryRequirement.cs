@@ -5,11 +5,11 @@ namespace ChannelBot.Authorization.Bll
     public class RoleEntryRequirement : IAuthorizationRequirement
     {
         // ReSharper disable once UnusedAutoPropertyAccessor.Local
-        private string RoleName { get; }
+        public int RoleId { get; }
 
-        public RoleEntryRequirement(string roleName)
+        public RoleEntryRequirement(int roleId)
         {
-            RoleName = roleName;
+            RoleId = roleId;
         }
     }
 }

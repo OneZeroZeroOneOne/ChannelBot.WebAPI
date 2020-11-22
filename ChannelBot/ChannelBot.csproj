@@ -21,6 +21,7 @@
     <ProjectReference Include="..\ChannelBot.Authorization.Bll\ChannelBot.Authorization.Bll.csproj" />
     <ProjectReference Include="..\ChannelBot.BLL\ChannelBot.BLL.csproj" />
     <ProjectReference Include="..\ChannelBot.DAL\ChannelBot.DAL.csproj" />
+    <ProjectReference Include="..\СhannelBot.Utilities\СhannelBot.Utilities.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

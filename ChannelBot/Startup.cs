@@ -15,6 +15,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using ChannelBot.Utilities.Middlewares;
+using System;
 
 namespace ChannelBot
 {
@@ -31,13 +33,15 @@ namespace ChannelBot
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            
+
+            string datebaseconnectionstring = Environment.GetEnvironmentVariable("datebaseconnectionstring");
+
             services.AddTransient(x =>
             {
-                return new MainContext("Host=95.214.9.14;Database=postgres;Username=postgres;Password=123456rtyu");
+                return new MainContext(datebaseconnectionstring);
             });
 
-            MainContext context = new MainContext("Host=95.214.9.14;Database=postgres;Username=postgres;Password=123456rtyu");
+            MainContext context = new MainContext(datebaseconnectionstring);
 
             JwtOption jwtOption = context.JwtOption.FirstOrDefault();
 
@@ -78,7 +82,7 @@ namespace ChannelBot
             services.AddAuthorizationCore(options =>
             {
                 options.AddPolicy("AdminRole", policy =>
-                    policy.Requirements.Add(new RoleEntryRequirement("Admin")));
+                    policy.Requirements.Add(new RoleEntryRequirement(1)));
             });
 
             services.AddSingleton<IAuthorizationHandler, RoleEntryHandler>();
@@ -102,6 +106,8 @@ namespace ChannelBot
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.ConfigureCustomExceptionMiddleware();
 
             app.UseHttpsRedirection();
 
