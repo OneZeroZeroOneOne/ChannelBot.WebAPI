@@ -32,10 +32,11 @@ namespace ChannelBot
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            Console.WriteLine("ALO");
             services.AddControllers();
 
             string datebaseconnectionstring = Environment.GetEnvironmentVariable("datebaseconnectionstring");
-
+            Console.WriteLine(datebaseconnectionstring);
             services.AddTransient(x =>
             {
                 return new MainContext(datebaseconnectionstring);
