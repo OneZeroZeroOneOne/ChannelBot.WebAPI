@@ -18,60 +18,60 @@ namespace ChannelBot.Controllers
     public class GroupController : ControllerBase
     {
 
-        private IGroupService _groupService;
-        private IMapper _mapperProfile;
+        private readonly IGroupService _groupService;
+        private readonly IMapper _mapperProfile;
         public GroupController(IGroupService groupService, IMapper mapperProfile)
         {
             _groupService = groupService;
             _mapperProfile = mapperProfile;
         }
 
-        [Authorize]
+        [Authorize(Policy = "AdminRole")]
         [HttpGet]
-        async public Task<List<GroupResponseViewModel>> GetAllGroup()
+        public async Task<List<GroupResponseViewModel>> GetAllGroup()
         {
             var responce = await _groupService.GetAllGroups();
             return _mapperProfile.Map<List<GroupResponseViewModel>>(responce);
         }
 
-        [Authorize]
+        [Authorize(Policy = "AdminRole")]
         [HttpGet]
         [Route("{id}")]
-        async public Task<GroupResponseViewModel> GetGroup([FromRoute] int id)
+        public async Task<GroupResponseViewModel> GetGroup([FromRoute] int id)
         {
             var responce = await _groupService.GetGroup(id);
             return _mapperProfile.Map<GroupResponseViewModel>(responce);
         }
 
-        [Authorize]
+        [Authorize(Policy = "AdminRole")]
         [HttpPost]
-        async public Task CreateGroup([FromQuery] int categoryId)
+        public async Task CreateGroup([FromQuery] int categoryId)
         {
             await _groupService.CreateGroup(categoryId);
 
         }
 
-        [Authorize]
+        [Authorize(Policy = "AdminRole")]
         [HttpPost]
         [Route("AddSource")]
-        async public Task AddSource([FromQuery] int groupId, [FromQuery] int sourceId)
+        public async Task AddSource([FromQuery] int groupId, [FromQuery] int sourceId)
         {
             await _groupService.AddSource(groupId, sourceId);
         }
 
-        [Authorize]
+        [Authorize(Policy = "AdminRole")]
         [HttpGet]
         [Route("GroupSource")]
-        async public Task<List<SourceResponseViewModel>> GroupSource([FromQuery] int groupId)
+        public async Task<List<SourceResponseViewModel>> GroupSource([FromQuery] int groupId)
         {
             var responce = await _groupService.GroupSource(groupId);
             return _mapperProfile.Map<List<SourceResponseViewModel>>(responce);
         }
 
-        [Authorize]
+        [Authorize(Policy = "AdminRole")]
         [HttpDelete]
         [Route("{groupId}")]
-        async public Task DeleteGroup([FromRoute] int groupId)
+        public async Task DeleteGroup([FromRoute] int groupId)
         {
             await _groupService.DeleteGroup(groupId);
         }

@@ -9,7 +9,7 @@ namespace ChannelBot.DAL.Contexts
 {
     public partial class MainContext: DbContext
     {
-        private string _connString;
+        private readonly string _connString;
         public MainContext(string connString)
         {
             _connString = connString;

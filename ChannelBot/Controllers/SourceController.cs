@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using ChannelBot.BLL.Abstractions;
-using ChannelBot.DAL.Models;
 using ChannelBot.DAL.ViewModel.Response;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ChannelBot.Controllers
 {
@@ -16,8 +13,8 @@ namespace ChannelBot.Controllers
     [ApiController]
     public class SourceController : ControllerBase
     {
-        private ISourceService _sourceService;
-        private IMapper _mapperProfile;
+        private readonly ISourceService _sourceService;
+        private readonly IMapper _mapperProfile;
         public SourceController(ISourceService sourceService, IMapper mapperProfile)
         {
             _sourceService = sourceService;
@@ -25,37 +22,37 @@ namespace ChannelBot.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(Policy = "AdminRole")]
         [HttpGet]
         [Route("{id}")]
-        async public Task<SourceResponseViewModel> GetSource([FromRoute] int id)
+        public async Task<SourceResponseViewModel> GetSource([FromRoute] int id)
         {
             var responce = await _sourceService.GetSource(id);
             return _mapperProfile.Map<SourceResponseViewModel>(responce);
         }
 
 
-        [Authorize]
+        [Authorize(Policy = "AdminRole")]
         [HttpGet]
-        async public Task<List<SourceResponseViewModel>> GetAllSource()
+        public async Task<List<SourceResponseViewModel>> GetAllSource()
         {
             var responce = await _sourceService.GetAllSource();
             return _mapperProfile.Map<List<SourceResponseViewModel>>(responce);
         }
 
 
-        [Authorize]
+        [Authorize(Policy = "AdminRole")]
         [HttpPost]
-        async public Task CreateSource([FromQuery] string Url, [FromQuery] int platformId)
+        public async Task CreateSource([FromQuery] string Url, [FromQuery] int platformId)
         {
             await _sourceService.CreateSource(Uri.UnescapeDataString(Url), platformId);
         }
 
 
-        [Authorize]
+        [Authorize(Policy = "AdminRole")]
         [HttpDelete]
         [Route("{id}")]
-        async public Task DeleteSource([FromRoute] int id)
+        public async Task DeleteSource([FromRoute] int id)
         {
             await _sourceService.DeleteSource(id);
         }

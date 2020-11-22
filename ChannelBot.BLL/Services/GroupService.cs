@@ -12,7 +12,7 @@ namespace ChannelBot.BLL.Services
 {
     public class GroupService: IGroupService
     {
-        private MainContext _context;
+        private readonly MainContext _context;
         public GroupService(MainContext context)
         {
             _context = context;

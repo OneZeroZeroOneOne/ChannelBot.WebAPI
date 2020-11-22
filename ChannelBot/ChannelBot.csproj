@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ChannelBot.Authorization.Bll\ChannelBot.Authorization.Bll.csproj" />
     <ProjectReference Include="..\ChannelBot.BLL\ChannelBot.BLL.csproj" />
     <ProjectReference Include="..\ChannelBot.DAL\ChannelBot.DAL.csproj" />
   </ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ChannelBot.Authorization.Bll;
 using ChannelBot.BLL.Abstractions;
 using ChannelBot.BLL.Options;
 using ChannelBot.BLL.Services;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ChannelBot
 {
@@ -73,6 +75,13 @@ namespace ChannelBot
 
             services.AddTransient<ISourceService, SourceService>();
 
+            services.AddAuthorizationCore(options =>
+            {
+                options.AddPolicy("AdminRole", policy =>
+                    policy.Requirements.Add(new RoleEntryRequirement("Admin")));
+            });
+
+            services.AddSingleton<IAuthorizationHandler, RoleEntryHandler>();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -109,13 +118,15 @@ namespace ChannelBot
                 c.InjectJavascript("https://raw.githack.com/OneZeroZeroOneOne/StaticFiles/master/Login.js");
             });
 
+
             app.UseRouting();
+            app.UseMiddleware<JwtMiddleware>();
+            app.UseAuthorization();
 
             app.UseCors(x => x.AllowAnyOrigin());
 
             app.UseCors(x => x.AllowAnyHeader());
 
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

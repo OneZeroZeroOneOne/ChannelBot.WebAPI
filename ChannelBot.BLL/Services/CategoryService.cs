@@ -12,7 +12,7 @@ namespace ChannelBot.BLL.Services
 {
     public class CategoryService : ICategoryService
     {
-        private MainContext _context;
+        private readonly MainContext _context;
         public CategoryService(MainContext context)
         {
             _context = context;

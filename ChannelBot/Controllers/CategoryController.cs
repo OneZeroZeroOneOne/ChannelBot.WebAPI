@@ -16,15 +16,15 @@ namespace ChannelBot.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private ICategoryService _categoryService;
-        private IMapper _mapperProfile;
+        private readonly ICategoryService _categoryService;
+        private readonly IMapper _mapperProfile;
         public CategoryController(ICategoryService categoryService, IMapper mapperProfile)
         {
             _categoryService = categoryService;
             _mapperProfile = mapperProfile;
         }
 
-        [Authorize]
+        [Authorize(Policy = "AdminRole")]
         [HttpGet]
         public async Task<List<CategoryResponseViewModel>> GetCategories()
         {
@@ -32,7 +32,7 @@ namespace ChannelBot.Controllers
             return _mapperProfile.Map<List<CategoryResponseViewModel>>(responce);
         }
 
-        [Authorize]
+        [Authorize(Policy = "AdminRole")]
         [HttpGet]
         [Route("{id}")]
         public async Task<CategoryResponseViewModel> GetCategory([FromRoute]int id)
@@ -41,14 +41,14 @@ namespace ChannelBot.Controllers
             return _mapperProfile.Map<CategoryResponseViewModel>(responce);
         }
 
-        [Authorize]
+        [Authorize(Policy = "AdminRole")]
         [HttpPost]
         public async Task CreateCategory([FromQuery] string title)
         {
             await _categoryService.CreateCategory(title);
         }
 
-        [Authorize]
+        [Authorize(Policy = "AdminRole")]
         [HttpDelete]
         [Route("{id}")]
         public async Task DeleteCategory([FromRoute] int id)

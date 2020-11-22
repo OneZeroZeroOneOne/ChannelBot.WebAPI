@@ -12,7 +12,7 @@ namespace ChannelBot.BLL.Services
 {
     public class SourceService: ISourceService
     {
-        private MainContext _context;
+        private readonly MainContext _context;
         public SourceService(MainContext context)
         {
             _context = context;
