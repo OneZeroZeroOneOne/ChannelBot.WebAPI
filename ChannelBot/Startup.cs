@@ -32,11 +32,9 @@ namespace ChannelBot
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            Console.WriteLine("ALO");
             services.AddControllers();
 
             string datebaseconnectionstring = Environment.GetEnvironmentVariable("datebaseconnectionstring");
-            Console.WriteLine(datebaseconnectionstring);
             services.AddTransient(x =>
             {
                 return new MainContext(datebaseconnectionstring);
@@ -73,6 +71,7 @@ namespace ChannelBot
                         };
                     });
 
+            services.AddTransient<IContentService, ContentService>();
 
             services.AddTransient<ICategoryService, CategoryService>();
 
@@ -108,8 +107,6 @@ namespace ChannelBot
                 app.UseDeveloperExceptionPage();
             }
 
-            app.ConfigureCustomExceptionMiddleware();
-
             app.UseHttpsRedirection();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
@@ -123,11 +120,17 @@ namespace ChannelBot
                 c.InjectJavascript("https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js");
                 c.InjectJavascript("https://unpkg.com/browse/webextension-polyfill@0.6.0/dist/browser-polyfill.min.js", type: "text/html");
                 c.InjectJavascript("https://raw.githack.com/OneZeroZeroOneOne/StaticFiles/master/Login.js");
+
             });
 
 
             app.UseRouting();
+
+            app.ConfigureCustomExceptionMiddleware();
+
             app.UseMiddleware<JwtMiddleware>();
+
+
             app.UseAuthorization();
 
             app.UseCors(x => x.AllowAnyOrigin());

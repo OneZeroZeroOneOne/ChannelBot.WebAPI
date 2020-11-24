@@ -88,7 +88,7 @@ namespace ChannelBot.Authorization.Bll
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw new Exception(ex.Message);
             }
         }
 

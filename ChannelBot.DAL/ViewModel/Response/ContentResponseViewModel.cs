@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace ChannelBot.Models
+namespace ChannelBot.DAL.ViewModel.Response
 {
-    public partial class Content
+    public class ContentResponseViewModel
     {
         public long Id { get; set; }
         public string MediaUrl { get; set; }
         public string Description { get; set; }
         public int SourceId { get; set; }
-
-        public virtual Source Source { get; set; }
     }
 }

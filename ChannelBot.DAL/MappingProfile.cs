@@ -16,6 +16,7 @@ namespace ChannelBot.DAL
             // Add as many of these lines as you need to map your objects
             CreateMap<Category, CategoryResponseViewModel>().ForMember(x => x.Groups, x => x.MapFrom(y => y.Group.ToList()));
             CreateMap<Source, SourceResponseViewModel>();
+            CreateMap<Content, ContentResponseViewModel>();
             CreateMap<Group, GroupResponseViewModel>().ForMember(x => x.Sources, x => x.MapFrom(y => y.GroupSource.Select(t => t.Source)));
 
         }
