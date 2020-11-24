@@ -17,6 +17,7 @@ namespace ChannelBot.DAL
             CreateMap<Category, CategoryResponseViewModel>().ForMember(x => x.Groups, x => x.MapFrom(y => y.Group.ToList()));
             CreateMap<Source, SourceResponseViewModel>();
             CreateMap<Content, ContentResponseViewModel>();
+            CreateMap<UserCredential, UserCredentialResponseViewModel>();
             CreateMap<Group, GroupResponseViewModel>().ForMember(x => x.Sources, x => x.MapFrom(y => y.GroupSource.Select(t => t.Source)));
 
         }

@@ -37,10 +37,10 @@ namespace ChannelBot
             string datebaseconnectionstring = Environment.GetEnvironmentVariable("datebaseconnectionstring");
             services.AddTransient(x =>
             {
-                return new MainContext(datebaseconnectionstring);
+                return new MainContext("Host=95.214.9.14;Database=postgres;Username=postgres;Password=123456rtyu");
             });
 
-            MainContext context = new MainContext(datebaseconnectionstring);
+            MainContext context = new MainContext("Host=95.214.9.14;Database=postgres;Username=postgres;Password=123456rtyu");
 
             JwtOption jwtOption = context.JwtOption.FirstOrDefault();
 
@@ -78,6 +78,8 @@ namespace ChannelBot
             services.AddTransient<IGroupService, GroupService>();
 
             services.AddTransient<ISourceService, SourceService>();
+
+            services.AddTransient<IUserCredentialService, UserCredentialService>();
 
             services.AddAuthorizationCore(options =>
             {

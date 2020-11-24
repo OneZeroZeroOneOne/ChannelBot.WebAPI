@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace ChannelBot.DAL.Models
+namespace ChannelBot.DAL.ViewModel.Response
 {
-    public partial class UserCredential
+    public class UserCredentialResponseViewModel
     {
         public int CategoryId { get; set; }
         public string UserName { get; set; }
         public string UserPassword { get; set; }
         public int PlatformId { get; set; }
-        public virtual Category Category { get; set; }
-        public virtual Platform Platform { get; set; }
     }
 }
