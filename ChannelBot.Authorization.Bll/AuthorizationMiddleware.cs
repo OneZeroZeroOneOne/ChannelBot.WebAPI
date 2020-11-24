@@ -30,9 +30,17 @@ namespace ChannelBot.Authorization.Bll
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)
+            {
                 ParseToken(context, token);
+                await _next(context);
+            }
+            else
+            {
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = 401;
 
-            await _next(context);
+                await context.Response.WriteAsync("unauthorized");
+            }
         }
 
         private void ParseToken(HttpContext context, string token)
