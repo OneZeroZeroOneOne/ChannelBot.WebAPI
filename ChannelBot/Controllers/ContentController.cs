@@ -42,7 +42,7 @@ namespace ChannelBot.Controllers
 
         [Authorize(Policy = "AdminRole")]
         [HttpPost]
-        public async Task CreateContent([FromQuery] int id, [FromQuery] string mediaUrl, [FromQuery] string description, [FromQuery] int sourceId)
+        public async Task CreateContent([FromQuery] long id, [FromQuery] string mediaUrl, [FromQuery] string description, [FromQuery] int sourceId)
         {
             await _contentService.CreateContent(id, Uri.UnescapeDataString(mediaUrl), Uri.UnescapeDataString(description), sourceId);
 

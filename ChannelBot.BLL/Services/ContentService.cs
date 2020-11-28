@@ -20,7 +20,7 @@ namespace ChannelBot.BLL.Services
             _context = context;
         }
 
-        public async Task CreateContent(int id, string mediaUrl, string description, int sourceId)
+        public async Task CreateContent(long id, string mediaUrl, string description, int sourceId)
         {
             Content content = new Content()
             {
