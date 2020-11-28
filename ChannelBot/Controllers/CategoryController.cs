@@ -43,7 +43,7 @@ namespace ChannelBot.Controllers
 
         [Authorize(Policy = "AdminRole")]
         [HttpPost]
-        public async Task CreateCategory([FromQuery] string title)
+        public async Task CreateCategory([FromBody] string title)
         {
             await _categoryService.CreateCategory(title);
         }
