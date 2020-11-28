@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ChannelBot.BLL.Abstractions;
+using ChannelBot.DAL.Models;
+using ChannelBot.DAL.ViewModel.In;
 
 namespace ChannelBot.Controllers
 {
@@ -42,9 +44,9 @@ namespace ChannelBot.Controllers
 
         [Authorize(Policy = "AdminRole")]
         [HttpPost]
-        public async Task CreateContent([FromQuery] long id, [FromQuery] string mediaUrl, [FromQuery] string description, [FromQuery] int sourceId)
+        public async Task CreateContent([FromBody] CreateContentInModel content)
         {
-            await _contentService.CreateContent(id, Uri.UnescapeDataString(mediaUrl), Uri.UnescapeDataString(description), sourceId);
+            await _contentService.CreateContent(content.id, Uri.UnescapeDataString(content.mediaUrl), Uri.UnescapeDataString(content.description), content.sourceId);
 
         }
     }

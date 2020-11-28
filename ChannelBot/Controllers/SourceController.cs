@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using ChannelBot.BLL.Abstractions;
+using ChannelBot.DAL.Models;
+using ChannelBot.DAL.ViewModel.In;
 using ChannelBot.DAL.ViewModel.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -43,9 +45,9 @@ namespace ChannelBot.Controllers
 
         [Authorize(Policy = "AdminRole")]
         [HttpPost]
-        public async Task CreateSource([FromBody] string Url, [FromBody] int platformId)
+        public async Task CreateSource([FromBody] CreateSourceInModel source)
         {
-            await _sourceService.CreateSource(Uri.UnescapeDataString(Url), platformId);
+            await _sourceService.CreateSource(Uri.UnescapeDataString(source.mediaUrl), source.platformId);
         }
 
 
