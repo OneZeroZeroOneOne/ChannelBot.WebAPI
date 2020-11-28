@@ -13,6 +13,6 @@ namespace ChannelBot.BLL.Abstractions
 
         public Task<Content> GetContent(int id);
 
-        public Task CreateContent(string mediaUrl, string description, int sourceId);
+        public Task CreateContent(int id, string mediaUrl, string description, int sourceId);
     }
 }
