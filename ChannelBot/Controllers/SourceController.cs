@@ -33,7 +33,6 @@ namespace ChannelBot.Controllers
             return _mapperProfile.Map<SourceResponseViewModel>(responce);
         }
 
-
         [Authorize(Policy = "AdminRole")]
         [HttpGet]
         public async Task<List<SourceResponseViewModel>> GetAllSource()

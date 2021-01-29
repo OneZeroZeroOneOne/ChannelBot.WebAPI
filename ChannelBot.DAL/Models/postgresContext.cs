@@ -1,19 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
-using ChannelBot.DAL.Models;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace ChannelBot.DAL.Contexts
+namespace ChannelBot.DAL.Models
 {
-    public partial class MainContext: DbContext
+    public partial class postgresContext : DbContext
     {
-        private readonly string _connString;
-        public MainContext(string connString)
+        public postgresContext()
         {
-            _connString = connString;
         }
+
+        public postgresContext(DbContextOptions<postgresContext> options)
+            : base(options)
+        {
+        }
+
         public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Channel> Channel { get; set; }
@@ -25,6 +26,15 @@ namespace ChannelBot.DAL.Contexts
         public virtual DbSet<Platform> Platform { get; set; }
         public virtual DbSet<Source> Source { get; set; }
         public virtual DbSet<UserCredential> UserCredential { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseNpgsql("Host=185.87.48.116;Database=postgres;Username=postgres;Password=123123AAA");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -137,10 +147,5 @@ namespace ChannelBot.DAL.Contexts
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseNpgsql(_connString);
-        }
     }
 }

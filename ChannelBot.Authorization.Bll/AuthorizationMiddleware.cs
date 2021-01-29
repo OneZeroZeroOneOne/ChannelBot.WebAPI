@@ -87,7 +87,6 @@ namespace ChannelBot.Authorization.Bll
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-
                 context.User = new GenericPrincipal(new AuthorizedUserModel
                 {
                     RoleId = int.Parse(jwtToken.Claims.First(x => x.Type == ClaimsIdentity.DefaultNameClaimType).Value),

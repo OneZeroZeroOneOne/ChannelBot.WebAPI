@@ -12,7 +12,7 @@ namespace ChannelBot.DAL.Models
 
         public int CategoryId { get; set; }
         public int Id { get; set; }
-        public int SerialNumber { get; set; }
+        public int? SerialNumber { get; set; }
 
         public virtual Category Category { get; set; }
         public virtual ICollection<GroupSource> GroupSource { get; set; }
