@@ -11,7 +11,7 @@ using ChannelBot.DAL.ViewModel.Response;
 
 namespace ChannelBot.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class UserCredentialController : ControllerBase
     {

@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ChannelBot.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class GroupController : ControllerBase
     {

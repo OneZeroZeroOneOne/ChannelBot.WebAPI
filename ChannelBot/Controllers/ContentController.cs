@@ -13,7 +13,7 @@ using ChannelBot.DAL.ViewModel.In;
 
 namespace ChannelBot.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ContentController : ControllerBase
     {

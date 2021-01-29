@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ChannelBot.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class SourceController : ControllerBase
     {
