@@ -39,7 +39,7 @@ namespace ChannelBot.Authorization.Bll
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = 401;
 
-                await context.Response.WriteAsync("unauthorized");
+                await context.Response.WriteAsync("unauthorized 1");
             }
         }
 
