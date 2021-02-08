@@ -140,7 +140,6 @@ namespace ChannelBot
 
             app.UseCors(x => x.AllowAnyHeader());
 
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
