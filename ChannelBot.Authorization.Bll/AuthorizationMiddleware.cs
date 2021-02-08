@@ -27,7 +27,7 @@ namespace ChannelBot.Authorization.Bll
 
         public async Task Invoke(HttpContext context)
         {
-            c?.Split(" ").Last();
+            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)
             {
@@ -37,8 +37,9 @@ namespace ChannelBot.Authorization.Bll
             else
             {
                 context.Response.ContentType = "application/json";
-                context.Response.StatusCode = 401;
-
+                context.Response.StatusCode = 200;
+                context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                context.Response.Headers.Add("Access-Control-Allow-Headers", "*");
                 await context.Response.WriteAsync($"unauthorized {context.Request.Headers["asd"].FirstOrDefault()}");
             }
         }
