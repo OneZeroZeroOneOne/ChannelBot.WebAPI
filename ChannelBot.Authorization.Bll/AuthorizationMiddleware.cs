@@ -27,11 +27,8 @@ namespace ChannelBot.Authorization.Bll
 
         public async Task Invoke(HttpContext context)
         {
-            var token = "123 .";
-            token += context.Request.Headers["authorization"].FirstOrDefault()?.Split(" ").Last();
-            context.Response.StatusCode = 200;
-            await context.Response.WriteAsync(token);
-            /*if (token != null)
+            var token = context.Request.Headers["authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (token != null)
             {
                 ParseToken(context, token);
                 await _next(context);
@@ -41,7 +38,7 @@ namespace ChannelBot.Authorization.Bll
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = 401;
                 await context.Response.WriteAsync($"unauthorized");
-            }*/
+            }
         }
 
         private void ParseToken(HttpContext context, string token)
