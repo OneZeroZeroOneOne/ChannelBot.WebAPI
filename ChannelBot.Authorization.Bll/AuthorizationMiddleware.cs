@@ -28,7 +28,7 @@ namespace ChannelBot.Authorization.Bll
         public async Task Invoke(HttpContext context)
         {
             var token = "123 .";
-            token += context.Request.Headers["da"].FirstOrDefault()?.Split(" ").Last();
+            token += context.Request.Headers["authorization"].FirstOrDefault()?.Split(" ").Last();
             context.Response.StatusCode = 200;
             await context.Response.WriteAsync(token);
             /*if (token != null)
