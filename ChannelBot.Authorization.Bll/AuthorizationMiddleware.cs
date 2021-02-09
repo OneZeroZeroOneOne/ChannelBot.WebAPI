@@ -29,6 +29,8 @@ namespace ChannelBot.Authorization.Bll
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
             Console.WriteLine(token);
+            context.Response.StatusCode = 200;
+            await context.Response.WriteAsync($"123123");
             if (token != null)
             {
                 ParseToken(context, token);
