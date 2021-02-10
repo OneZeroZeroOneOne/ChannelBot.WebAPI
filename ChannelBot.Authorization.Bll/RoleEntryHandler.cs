@@ -8,10 +8,20 @@ namespace ChannelBot.Authorization.Bll
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
             RoleEntryRequirement requirement)
         {
-            var authorizedUser = (AuthorizedUserModel)context.User.Identity;
-            if (authorizedUser.RoleId == requirement.RoleId)
+            if (context.User.Identity.GetType() == typeof(AuthorizedUserModel))
             {
-                context.Succeed(requirement);
+                var myUser = (AuthorizedUserModel)context.User.Identity;
+                if (myUser != null)
+                {
+                    if (myUser.RoleId == requirement.RoleId)
+                    {
+                        context.Succeed(requirement);
+                    }
+                }
+                else
+                {
+                    context.Fail();
+                }
             }
             return Task.CompletedTask;
         }
