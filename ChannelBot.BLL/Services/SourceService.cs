@@ -24,13 +24,14 @@ namespace ChannelBot.BLL.Services
         }
 
 
-        async public Task CreateSource(string Url, int platformId)
+        async public Task<int> CreateSource(string Url, int platformId)
         {
             Source s = new Source();
             s.SourceUrl = Url;
             s.PlatformId = platformId;
             await _context.Source.AddAsync(s);
             await _context.SaveChangesAsync();
+            return s.Id;
         }
 
         async public Task<List<Source>> GetAllSource()

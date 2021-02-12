@@ -44,9 +44,9 @@ namespace ChannelBot.Controllers
 
         [Authorize(Policy = "AdminRole")]
         [HttpPost]
-        public async Task CreateSource([FromQuery] string mediaUrl, int platformId)
+        public async Task<int> CreateSource([FromQuery] string mediaUrl, int platformId)
         {
-            await _sourceService.CreateSource(Uri.UnescapeDataString(mediaUrl), platformId);
+            return await _sourceService.CreateSource(Uri.UnescapeDataString(mediaUrl), platformId);
         }
 
 
