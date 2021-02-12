@@ -18,10 +18,11 @@ namespace ChannelBot.BLL.Services
             _context = context;
         }
 
-        async public Task CreateGroup(int categoryId)
+        async public Task CreateGroup(int categoryId, int serialNumber)
         {
             Group g = new Group();
             g.CategoryId = categoryId;
+            g.SerialNumber = serialNumber;
             await _context.Group.AddAsync(g);
             await _context.SaveChangesAsync();
         }

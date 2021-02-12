@@ -10,7 +10,7 @@ namespace ChannelBot.BLL.Abstractions
     {
         public Task<Group> GetGroup(int id);
 
-        public Task CreateGroup(int id);
+        public Task CreateGroup(int id, int serialNumber);
 
         public Task<List<Group>> GetAllGroups();
         public Task AddSource(int groupId, int sourceId);

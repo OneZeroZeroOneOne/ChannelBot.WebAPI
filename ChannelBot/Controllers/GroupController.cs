@@ -45,9 +45,9 @@ namespace ChannelBot.Controllers
 
         [Authorize(Policy = "AdminRole")]
         [HttpPost]
-        public async Task CreateGroup([FromQuery] int categoryId)
+        public async Task CreateGroup([FromQuery] int categoryId, [FromQuery] int serialNumber)
         {
-            await _groupService.CreateGroup(categoryId);
+            await _groupService.CreateGroup(categoryId, serialNumber);
 
         }
 
