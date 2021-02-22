@@ -17,9 +17,32 @@ namespace ChannelBot.BLL.Services
             _context = context;
         }
 
-        public Task<List<UserCredential>> GetAllUserCredentials()
+        public async Task<int> ChangeUserCredential(int userId, int categoryId, string login, string password)
         {
-            return _context.UserCredential.ToListAsync();
+            UserCredential userCredential = await _context.UserCredential.Include(x => x.Category).FirstOrDefaultAsync(x => x.CategoryId == categoryId && x.Category.AdminId == userId);
+            if(userCredential == null)
+            {
+                await _context.UserCredential.AddAsync(new UserCredential()
+                {
+                    CategoryId = categoryId,
+                    UserName = login,
+                    UserPassword = password
+                });
+            }
+            else
+            {
+                userCredential.UserPassword = password;
+                userCredential.UserName = login;
+            }
+            await _context.SaveChangesAsync();
+            return 0;
+
+
+        }
+
+        public async Task<List<UserCredential>> GetAllUserCredentials()
+        {
+            return await _context.UserCredential.ToListAsync();
         }
     }
 }
