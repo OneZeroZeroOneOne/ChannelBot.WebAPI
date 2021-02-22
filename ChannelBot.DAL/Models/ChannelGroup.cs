@@ -5,7 +5,10 @@ namespace ChannelBot.DAL.Models
 {
     public partial class ChannelGroup
     {
-        public long ChanneId { get; set; }
+        public int ChannelId { get; set; }
         public int GroupId { get; set; }
+
+        public virtual Channel Channel { get; set; }
+        public virtual Group Group { get; set; }
     }
 }

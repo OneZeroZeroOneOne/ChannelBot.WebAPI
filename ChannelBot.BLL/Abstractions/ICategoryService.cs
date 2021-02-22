@@ -8,11 +8,11 @@ namespace ChannelBot.BLL.Abstractions
 {
     public interface ICategoryService
     {
-        public Task<List<Category>> GetAllCategories();
-        public Task<Category> GetCategory(int id);
+        public Task<List<Category>> GetAllCategories(int userId);
+        public Task<Category> GetCategory(int id, int userId);
 
-        public Task CreateCategory(string title);
+        public Task CreateCategory(string title, int userId);
 
-        public Task DeleteCategory(int id);
+        public Task DeleteCategory(int id, int userId);
     }
 }

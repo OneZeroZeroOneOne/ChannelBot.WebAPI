@@ -15,6 +15,7 @@ namespace ChannelBot.DAL.Contexts
             _connString = connString;
         }
         public virtual DbSet<Admin> Admin { get; set; }
+        public virtual DbSet<Bot> Bot { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Channel> Channel { get; set; }
         public virtual DbSet<ChannelGroup> ChannelGroup { get; set; }
@@ -37,17 +38,63 @@ namespace ChannelBot.DAL.Contexts
                 entity.Property(e => e.Password).IsRequired();
             });
 
+            modelBuilder.Entity<Bot>(entity =>
+            {
+                entity.Property(e => e.Id).HasDefaultValueSql("nextval('bot_id_seq'::regclass)");
+
+                entity.Property(e => e.Token)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.HasOne(d => d.Admin)
+                    .WithMany(p => p.Bot)
+                    .HasForeignKey(d => d.AdminId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Bot_AdminId_fkey");
+            });
+
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.HasOne(d => d.Admin)
+                    .WithMany(p => p.Category)
+                    .HasForeignKey(d => d.AdminId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Category_AdminId_fkey");
+            });
+
             modelBuilder.Entity<Channel>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).HasDefaultValueSql("nextval('channel_id_seq'::regclass)");
+
+                entity.HasOne(d => d.Admin)
+                    .WithMany(p => p.Channel)
+                    .HasForeignKey(d => d.AdminId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Channel_AdminId_fkey");
+
+                entity.HasOne(d => d.Bot)
+                    .WithMany(p => p.Channel)
+                    .HasForeignKey(d => d.BotId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Channel_BotId_fkey");
             });
 
             modelBuilder.Entity<ChannelGroup>(entity =>
             {
-                entity.HasKey(e => e.ChanneId)
+                entity.HasKey(e => new { e.ChannelId, e.GroupId })
                     .HasName("ChannelGroup_pkey");
 
-                entity.Property(e => e.ChanneId).ValueGeneratedNever();
+                entity.HasOne(d => d.Channel)
+                    .WithMany(p => p.ChannelGroup)
+                    .HasForeignKey(d => d.ChannelId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("ChannelGroup_ChannelId_fkey");
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.ChannelGroup)
+                    .HasForeignKey(d => d.GroupId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("ChannelGroup_GroupId_fkey");
             });
 
             modelBuilder.Entity<Content>(entity =>
@@ -132,6 +179,12 @@ namespace ChannelBot.DAL.Contexts
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("ua_pi_fk");
             });
+
+            modelBuilder.HasSequence("bot_id_seq");
+
+            modelBuilder.HasSequence("channel_id_seq");
+
+            modelBuilder.HasSequence("Group_Id_seq").StartsAt(7);
 
             OnModelCreatingPartial(modelBuilder);
         }

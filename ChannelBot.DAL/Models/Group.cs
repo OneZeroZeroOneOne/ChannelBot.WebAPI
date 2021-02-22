@@ -7,6 +7,7 @@ namespace ChannelBot.DAL.Models
     {
         public Group()
         {
+            ChannelGroup = new HashSet<ChannelGroup>();
             GroupSource = new HashSet<GroupSource>();
         }
 
@@ -15,6 +16,7 @@ namespace ChannelBot.DAL.Models
         public int? SerialNumber { get; set; }
 
         public virtual Category Category { get; set; }
+        public virtual ICollection<ChannelGroup> ChannelGroup { get; set; }
         public virtual ICollection<GroupSource> GroupSource { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ChannelBot.Authorization.Bll;
 using ChannelBot.BLL.Abstractions;
 using ChannelBot.DAL.Models;
 using ChannelBot.DAL.ViewModel.In;
@@ -29,7 +30,8 @@ namespace ChannelBot.Controllers
         [Route("{id}")]
         public async Task<SourceResponseViewModel> GetSource([FromRoute] int id)
         {
-            var responce = await _sourceService.GetSource(id);
+            AuthorizedUserModel authorizedUserModel = (AuthorizedUserModel)HttpContext.User.Identity;
+            var responce = await _sourceService.GetSource(id, authorizedUserModel.UserId);
             return _mapperProfile.Map<SourceResponseViewModel>(responce);
         }
 
@@ -37,7 +39,8 @@ namespace ChannelBot.Controllers
         [HttpGet]
         public async Task<List<SourceResponseViewModel>> GetAllSource()
         {
-            var responce = await _sourceService.GetAllSource();
+            AuthorizedUserModel authorizedUserModel = (AuthorizedUserModel)HttpContext.User.Identity;
+            var responce = await _sourceService.GetAllSource(authorizedUserModel.UserId);
             return _mapperProfile.Map<List<SourceResponseViewModel>>(responce);
         }
 
@@ -46,7 +49,8 @@ namespace ChannelBot.Controllers
         [HttpPost]
         public async Task<int> CreateSource([FromQuery] string mediaUrl, int platformId)
         {
-            return await _sourceService.CreateSource(Uri.UnescapeDataString(mediaUrl), platformId);
+            AuthorizedUserModel authorizedUserModel = (AuthorizedUserModel)HttpContext.User.Identity;
+            return await _sourceService.CreateSource(Uri.UnescapeDataString(mediaUrl), platformId, authorizedUserModel.UserId);
         }
 
 
@@ -55,7 +59,8 @@ namespace ChannelBot.Controllers
         [Route("{id}")]
         public async Task DeleteSource([FromRoute] int id)
         {
-            await _sourceService.DeleteSource(id);
+            AuthorizedUserModel authorizedUserModel = (AuthorizedUserModel)HttpContext.User.Identity;
+            await _sourceService.DeleteSource(id, authorizedUserModel.UserId);
         }
     }
 }

@@ -14,6 +14,7 @@ namespace ChannelBot.DAL.Models
         public string SourceUrl { get; set; }
         public int Id { get; set; }
         public int? PlatformId { get; set; }
+        public int AdminId { get; set; }
 
         public virtual ICollection<Content> Content { get; set; }
         public virtual ICollection<GroupSource> GroupSource { get; set; }

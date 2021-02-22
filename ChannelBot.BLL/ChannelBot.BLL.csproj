@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ChannelBot.DAL\ChannelBot.DAL.csproj" />
+    <ProjectReference Include="..\СhannelBot.Utilities\СhannelBot.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

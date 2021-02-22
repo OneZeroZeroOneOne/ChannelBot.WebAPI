@@ -10,6 +10,7 @@ using ChannelBot.DAL.Models;
 using Microsoft.AspNetCore.Routing;
 using ChannelBot.DAL.ViewModel.Response;
 using Microsoft.AspNetCore.Authorization;
+using ChannelBot.Authorization.Bll;
 
 namespace ChannelBot.Controllers
 {
@@ -30,7 +31,8 @@ namespace ChannelBot.Controllers
         [HttpGet]
         public async Task<List<GroupResponseViewModel>> GetAllGroup()
         {
-            var responce = await _groupService.GetAllGroups();
+            AuthorizedUserModel authorizedUserModel = (AuthorizedUserModel)HttpContext.User.Identity;
+            var responce = await _groupService.GetAllGroups(authorizedUserModel.UserId);
             return _mapperProfile.Map<List<GroupResponseViewModel>>(responce);
         }
 
@@ -39,7 +41,8 @@ namespace ChannelBot.Controllers
         [Route("{id}")]
         public async Task<GroupResponseViewModel> GetGroup([FromRoute] int id)
         {
-            var responce = await _groupService.GetGroup(id);
+            AuthorizedUserModel authorizedUserModel = (AuthorizedUserModel)HttpContext.User.Identity;
+            var responce = await _groupService.GetGroup(id, authorizedUserModel.UserId);
             return _mapperProfile.Map<GroupResponseViewModel>(responce);
         }
 
@@ -47,7 +50,8 @@ namespace ChannelBot.Controllers
         [HttpPost]
         public async Task CreateGroup([FromQuery] int categoryId, [FromQuery] int serialNumber)
         {
-            await _groupService.CreateGroup(categoryId, serialNumber);
+            AuthorizedUserModel authorizedUserModel = (AuthorizedUserModel)HttpContext.User.Identity;
+            await _groupService.CreateGroup(categoryId, serialNumber, authorizedUserModel.UserId);
 
         }
 
@@ -56,7 +60,8 @@ namespace ChannelBot.Controllers
         [Route("AddSource")]
         public async Task AddSource([FromQuery] int groupId, [FromQuery] int sourceId)
         {
-            await _groupService.AddSource(groupId, sourceId);
+            AuthorizedUserModel authorizedUserModel = (AuthorizedUserModel)HttpContext.User.Identity;
+            await _groupService.AddSource(groupId, sourceId, authorizedUserModel.UserId);
         }
 
         [Authorize(Policy = "AdminRole")]
@@ -64,7 +69,8 @@ namespace ChannelBot.Controllers
         [Route("GroupSource")]
         public async Task<List<SourceResponseViewModel>> GroupSource([FromQuery] int groupId)
         {
-            var responce = await _groupService.GroupSource(groupId);
+            AuthorizedUserModel authorizedUserModel = (AuthorizedUserModel)HttpContext.User.Identity;
+            var responce = await _groupService.GroupSource(groupId, authorizedUserModel.UserId);
             return _mapperProfile.Map<List<SourceResponseViewModel>>(responce);
         }
 
@@ -73,7 +79,8 @@ namespace ChannelBot.Controllers
         [Route("{groupId}")]
         public async Task DeleteGroup([FromRoute] int groupId)
         {
-            await _groupService.DeleteGroup(groupId);
+            AuthorizedUserModel authorizedUserModel = (AuthorizedUserModel)HttpContext.User.Identity;
+            await _groupService.DeleteGroup(groupId, authorizedUserModel.UserId);
         }
     }
 

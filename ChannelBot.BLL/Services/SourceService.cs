@@ -1,6 +1,7 @@
 ﻿using ChannelBot.BLL.Abstractions;
 using ChannelBot.DAL.Contexts;
 using ChannelBot.DAL.Models;
+using ChannelBot.Utilities.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,32 +19,41 @@ namespace ChannelBot.BLL.Services
             _context = context;
         }
 
-        async public Task<Source> GetSource(int id)
+        async public Task<Source> GetSource(int id, int userId)
         {
-            return await _context.Source.Include(x => x.GroupSource).ThenInclude(x => x.Group).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Source.Include(x => x.GroupSource).ThenInclude(x => x.Group).FirstOrDefaultAsync(x => x.Id == id && x.AdminId == userId);
         }
 
 
-        async public Task<int> CreateSource(string Url, int platformId)
+        async public Task<int> CreateSource(string Url, int platformId, int userId)
         {
             Source s = new Source();
             s.SourceUrl = Url;
             s.PlatformId = platformId;
+            s.AdminId = userId;
             await _context.Source.AddAsync(s);
             await _context.SaveChangesAsync();
             return s.Id;
         }
 
-        async public Task<List<Source>> GetAllSource()
+        async public Task<List<Source>> GetAllSource(int userId)
         {
-            return await _context.Source.Include(x => x.GroupSource).ThenInclude(x => x.Group).ToListAsync();
+            return await _context.Source.Include(x => x.GroupSource).ThenInclude(x => x.Group).Where(x => x.AdminId == userId).ToListAsync();
         }
 
-        async public Task DeleteSource(int sourceId)
+        async public Task DeleteSource(int sourceId, int userId)
         {
-            _context.GroupSource.RemoveRange(_context.GroupSource.Where(x => x.SourceId == sourceId));
-            _context.Source.RemoveRange(_context.Source.Where(x => x.Id == sourceId));
-            await _context.SaveChangesAsync();
+            Source s = await _context.Source.FirstOrDefaultAsync(x => x.AdminId == userId && x.Id == sourceId);
+            if(s != null)
+            {
+                _context.GroupSource.RemoveRange(_context.GroupSource.Where(x => x.SourceId == sourceId));
+                _context.Source.RemoveRange(_context.Source.Where(x => x.Id == sourceId));
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw ExceptionFactory.SoftException(ExceptionEnum.SourceNotFound, $"Source with id {sourceId} not found");
+            }
         }
     }
 }
